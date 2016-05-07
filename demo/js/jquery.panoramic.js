@@ -33,7 +33,7 @@
 
 	// 插件初始化中用到的css设置
 	var cssCode = {
-		
+
 	}
 
 
@@ -44,7 +44,7 @@
 
 
 	// 插件启动函数
-    $.fn.image360 = function (options) {
+    $.fn.panoramic = function (options) {
 
     	// 设定参数的覆盖顺序()
 		var settings = $.extend( {}, defaults, options);

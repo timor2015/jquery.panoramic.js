@@ -53,6 +53,12 @@
 			that.find('.panor_img').attr('style', cssCode.img);
 			that.find('.panor_img img').attr('style', cssCode.pic);	
 		},
+
+		// 获取图片信息
+		'getImgInfo' : function(that){
+			para.imgLength = that.find('.panor_img img').outerWidth();
+			that.find('.panor_img').width(para.imgLength*3);
+		},
 	}
 
 
@@ -67,6 +73,9 @@
 		// 给标签添加css初始化代码
 		methods.cssInit(this);
 		cssCode = null;
+
+		// 根据图片宽度设定panor_img的宽度
+		methods.getImgInfo(this);
 
 
 

@@ -97,7 +97,6 @@
 		
 		// 给标签添加css初始化代码
 		methods.cssInit(this);
-		cssCode = null;
 
 		para.imgLength = parseInt(this.find('.panor_img img').width());
 

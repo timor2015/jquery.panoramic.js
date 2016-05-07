@@ -3,3 +3,6 @@
 $('#panor').panoramic({
 	'autoplay' : false,
 })
+
+
+

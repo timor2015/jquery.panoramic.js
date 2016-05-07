@@ -35,8 +35,8 @@
 	// 插件初始化中用到的css设置
 	var cssCode = {
 		'panor' : 'position:relative; overflow:hidden;',
-		'float' : 'z-index: 999; width: inherit; height: inherit; position: absolute; cursor: move; left: 0px; top: 0px;',
-		'box' : 'width: inherit; height: inherit; position: absolute; left: 0px; top: 0px;',
+		'float' : 'background: #fff; opacity:0; filter:alpha(opacity=0); z-index: 222; width: inherit; height: inherit; position: absolute; cursor: move; left: 0px; top: 0px;',
+		'box' : 'z-index: 0; width: inherit; height: inherit; position: absolute; left: 0px; top: 0px;',
 		'img' : 'height: inherit; position: absolute; top: 0px; left: 0px;',
 		'pic' : 'height: inherit; position: absolute; top: 0px; border: 0px;',
 	}	
@@ -77,8 +77,8 @@
     	// 设定参数的覆盖顺序()
 		var settings = $.extend( {}, defaults, options);
 		settings.auto = $.extend(defaults.auto, options.auto);
-		para.float = this.find('.panor_float');
-		para.img = this.find('.panor_img');
+		para.float = $(this).find('.panor_float');
+		para.img = $(this).find('.panor_img');
 		
 
 		
@@ -104,8 +104,9 @@
 			para.pastPos = e.originalEvent.x || e.originalEvent.layerX || 0;
 		});
 
+
 		// 鼠标抬起事件
-		$(':root').on('mouseup', function(e){
+		$('html').on('mouseup', function(e){
 			e.preventDefault();
 			para.touchOff = false;
 			methods.resetImgPos();
@@ -118,14 +119,16 @@
 			para.pastPos = e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 		});
 
-		$(':root').on('touchend', function(e){
+		$('html').on('touchend', function(e){
 			e.preventDefault();
 			para.touchOff = false;
 			methods.resetImgPos();
 		});
 
+
+
 		// 鼠标移动事件(用户可能会鼠标移出float层, 所有使用委托)
-		$(':root').on('mousemove', function(e){
+		$('html').on('mousemove', function(e){
 			e.preventDefault();
 			if (e.target.className != 'panor_float') {
 				para.touchOff = false;
@@ -146,7 +149,7 @@
 			}			
 		});
 
-		$(':root').on('touchmove', function(e){
+		$('html').on('touchmove', function(e){
 			e.preventDefault();
 			if (e.target.className != 'panor_float') {
 				para.touchOff = false;

@@ -33,13 +33,26 @@
 
 	// 插件初始化中用到的css设置
 	var cssCode = {
-
-	}
+		'panor' : 'position:relative; overflow:hidden;',
+		'float' : 'z-index: 999; width: inherit; height: inherit; position: absolute; cursor: move; left: 0px; top: 0px;',
+		'box' : 'width: inherit; height: inherit; position: absolute; left: 0px; top: 0px;',
+		'img' : 'height: inherit; position: absolute; top: 0px;',
+		'pic' : 'height: inherit; float: left; border: 0px;',
+	}	
 
 
 	// 注册插件运行中用到的函数
 	var methods = {
-
+		// cssInit
+		'cssInit' : function(that){
+			var content = that.find('.panor_img').html();
+			that.find('.panor_img').html(content+content+content);
+			that.attr('style', cssCode.panor);
+			that.find('.panor_float').attr('style', cssCode.float);
+			that.find('.panor_box').attr('style', cssCode.box);
+			that.find('.panor_img').attr('style', cssCode.img);
+			that.find('.panor_img img').attr('style', cssCode.pic);	
+		},
 	}
 
 
@@ -51,6 +64,9 @@
 		settings.auto = $.extend(defaults.auto, options.auto);
 		
 
+		// 给标签添加css初始化代码
+		methods.cssInit(this);
+		cssCode = null;
 
 
 

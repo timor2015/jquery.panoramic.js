@@ -29,6 +29,7 @@
 		'timerOff' : true,
 		'float' : null,
 		'img' : null,
+		'restart' : false,
 	}
 
 
@@ -67,7 +68,19 @@
 					'left' : para.nowImgPos + para.imgLength,
 				})
 			}	
-		}
+		},
+
+		// 设定定时器
+		'autogo' : function(settings){
+			para.timer = setInterval(function(){
+				var dir = para.dir == 'left' ? settings.auto.stepwidth*(-1) : settings.auto.stepwidth;
+				para.nowImgPos = parseInt(para.img.css('left'));
+				para.img.css({
+					'left' : para.nowImgPos + dir + 'px',
+				});
+				methods.resetImgPos();
+			}, 50);
+		},
 	}
 
 
@@ -100,6 +113,8 @@
 		// 添加鼠标按下事件
 		para.float.on('mousedown', function(e){
 			e.preventDefault();
+			clearInterval(para.timer);
+			para.restart = true;
 			para.touchOff = true;
 			para.pastPos = e.originalEvent.x || e.originalEvent.layerX || 0;
 		});
@@ -107,22 +122,40 @@
 
 		// 鼠标抬起事件
 		$('html').on('mouseup', function(e){
-			e.preventDefault();
-			para.touchOff = false;
-			methods.resetImgPos();
+			getout(e);
+			
 		})
+
+		function getout(e){
+			e.preventDefault();
+			if (para.restart) {
+				para.touchOff = false;
+				clearInterval(para.timer);
+				para.timer = null;
+				methods.resetImgPos();
+				if (para.timerOff) {
+					clearInterval(para.timer);
+					para.timerOff = false;
+					setTimeout(function(){
+						methods.autogo(settings);
+						para.timerOff = true;
+					}, settings.auto.startdelay);
+				};
+				para.restart = false;
+			}
+		}
 
 		// 移动端事件
 		para.float.on('touchstart', function(e){
 			e.preventDefault();
+			clearInterval(para.timer);
+			para.restart = true;
 			para.touchOff = true;
 			para.pastPos = e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 		});
 
 		$('html').on('touchend', function(e){
-			e.preventDefault();
-			para.touchOff = false;
-			methods.resetImgPos();
+			getout(e);
 		});
 
 
@@ -139,9 +172,9 @@
 				para.nowPos = e.originalEvent.x || e.originalEvent.layerX || 0;
 				var iLength = para.nowPos - para.pastPos;
 				if (iLength > 0) {
-					para.dir = 'left'
+					para.dir = 'right';
 				}else{
-					para.dir = 'right'
+					para.dir = 'left';
 				}
 				para.pastPos = para.nowPos;
 				para.nowImgPos = parseInt(para.img.css('left'));
@@ -160,9 +193,9 @@
 				para.nowPos = e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 				var iLength = para.nowPos - para.pastPos;
 				if (iLength > 0) {
-					para.dir = 'left'
+					para.dir = 'right';
 				}else{
-					para.dir = 'right'
+					para.dir = 'left';
 				}
 				para.pastPos = para.nowPos;
 				para.nowImgPos = parseInt(para.img.css('left'));
@@ -170,7 +203,10 @@
 			}			
 		});
 
-
+		// 自动播放
+		if (settings.autoplay) {
+			methods.autogo(settings);
+		}
 
 		// 返回jquery对象, 保持链式操作
 		return this;

@@ -1,0 +1,25 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+.container{
+	width: 980px;
+	margin: 0px auto;
+}
+
+h1{
+	margin: 50px 90px;
+}
+
+.box{
+	width: 800px;
+	height: 500px;
+	margin: 50px auto;
+}
+
+#panor{
+	width: 700px;
+	height: inherit;
+	margin: 0px 50px;
+}

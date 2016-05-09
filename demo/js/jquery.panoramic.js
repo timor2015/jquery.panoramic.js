@@ -79,7 +79,7 @@
 					'left' : para.nowImgPos + dir + 'px',
 				});
 				methods.resetImgPos();
-			}, 50);
+			}, 30);
 		},
 	}
 

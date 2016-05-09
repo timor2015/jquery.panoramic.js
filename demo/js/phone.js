@@ -4,6 +4,6 @@
 $('#panor2').panoramic({
 	'autoplay' : true,
 	'auto' : {
-		'stepwidth' : 2
+		'stepwidth' : 1
 	}
 })

@@ -178,6 +178,7 @@
 				para.pastPos = para.nowPos;
 				para.nowImgPos = parseInt(para.img.css('left'));
 				para.img.css('left', para.nowImgPos+iLength);
+				methods.resetImgPos();
 			}			
 		});
 
@@ -199,6 +200,7 @@
 				para.pastPos = para.nowPos;
 				para.nowImgPos = parseInt(para.img.css('left'));
 				para.img.css('left', para.nowImgPos+iLength);
+				methods.resetImgPos();
 			}			
 		});
 
